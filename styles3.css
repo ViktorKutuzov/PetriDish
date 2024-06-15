@@ -1,0 +1,8 @@
+/* styles.css */
+.custom-font {
+    font-family: 'Inter', sans-serif; /* Шрифт Inter */
+    font-weight: 400; /* Нормальная жирность */
+    font-size: 2rem; /* Размер шрифта 2rem (32px при базовом размере 16px) */
+    color: #333; /* Цвет текста */
+    text-transform: uppercase; /* Преобразование текста в верхний регистр */
+}
