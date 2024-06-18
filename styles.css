@@ -1,0 +1,104 @@
+body{
+    font-family: "Inter", sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
+    font-variation-settings:
+      "slnt" 0;
+}
+a{
+    text-decoration: none;
+    color: black;
+    opacity: 0.8;
+    cursor: pointer;
+}
+a:hover{
+    color: black;
+    opacity: 1;
+    transition: 0.2s;
+    
+}
+.fs-7{
+    font-size: 12px;
+}
+.bg-blue{
+    background-color: #1D96C9;
+}
+.bg-lightblue{
+    background-color: #26A9E0;
+}
+.bg-lightblue50{
+    background-color: #E9F6FC;
+}
+ul{
+    text-decoration: none;
+    list-style: none;
+}
+.bg-darkblue{
+    background-color: #2660AB;
+}
+.header-logo__icon{
+    fill: white;
+    height: 40px;
+    width: 142px;
+    cursor: pointer;
+}
+.border-lightblue{
+    border: 1px solid;
+    border-color: #26A9E0;
+}
+.text-lightblue{
+    color: #26A9E0;
+    letter-spacing: 1.5px;
+}
+.text-blue{
+    color: #26A9E5;
+}
+.btn-purp{
+    background-color: #F2EFFD;
+    color: #8C5EEA;
+}
+.bg-green{
+    background-color: #E3F9E1;
+}
+.product1{
+    padding-left: 89px;
+}
+.product1::before{
+    background: url(https://static.chitai-gorod.ru/img/online.aa0f9e9.svg) no-repeat;
+    background-size: cover;
+    content: "";
+    display: block;
+    height: 60px;
+    left: 0;
+    position: absolute;
+    width: 85px;
+}
+.product2{
+    padding-left: 89px;
+}
+.product2::before{
+    background: url(https://static.chitai-gorod.ru/img/shop.62f9385.svg) no-repeat;
+    background-size: cover;
+    content: "";
+    display: block;
+    height: 60px;
+    left: 0;
+    position: absolute;
+    width: 85px;
+}
+.bg-footer{
+    background-color: #ECF6FE;
+}
+.text-green{
+    color: #71CEB4;
+}
+.btn-bonus{
+    height: 30px;
+    width: 158px;
+}
+.text-purp{
+    color: #8C5EEA;
+}
+.icon_footer{
+    fill: gray;
+}
