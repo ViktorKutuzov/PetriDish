@@ -52,64 +52,64 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['submit'])) {
 ?>
 
 <main class="container-bg bg-white my-5 p-5">
-<div class="container">
-    <?php 
-        if (!empty($success)) {
-            echo "<div class='d-flex justify-content-center'>";
-            echo "<img id='uploaded-image' src='$image_path' alt='Uploaded Image' style='max-width: 100%; height: auto;'>";
-            echo "</div>";
-        } else {
-            echo "<p class='text-danger'>$errors</p>";
-        }
-    ?>
-    <form class="form-export d-flex flex-column align-items-center gap-5" method="POST" enctype="multipart/form-data">
-        <label for="upload-file"> <?php empty($success) ? "Загрузите ваше изображение (PNG, JPEG, JPG)" : "" ?></label>
-        <input type="file" name="file-1" class="form-control w-25" id="upload-file">
-        <button type="submit" name="submit" class="btn btn-info text-white mt-2">Загрузить</button>
-    </form>
-    <?php 
-        if (!empty($success)) {
-            echo "<div class='d-flex justify-content-center'>";
-            echo "<button id='run-python' class='btn btn-info text-white mt-2'>Определить количество колоний</button>";
-            echo "</div>";
-        }
-    ?>
-</div>
+    <div class="container">
+        <?php if (!empty($success)): ?>
+            <div class='d-flex justify-content-center'>
+                <img id='uploaded-image' src='<?php echo htmlspecialchars($image_path); ?>' alt='Uploaded Image' style='max-width: 100%; height: auto;'>
+            </div>
+        <?php else: ?>
+            <p class='text-danger'><?php echo htmlspecialchars($errors); ?></p>
+        <?php endif; ?>
+
+        <form class="form-export d-flex flex-column align-items-center gap-5" method="POST" enctype="multipart/form-data">
+            <label for="upload-file">
+                <?php echo empty($success) ? "Загрузите ваше изображение (PNG, JPEG, JPG)" : ""; ?>
+            </label>
+            <input type="file" name="file-1" class="form-control w-25" id="upload-file">
+            <button type="submit" name="submit" class="btn btn-info text-white mt-2">Загрузить</button>
+        </form>
+
+        <?php if (!empty($success)): ?>
+            <div class='d-flex justify-content-center'>
+                <button id='run-python' class='btn btn-info text-white mt-2'>Определить количество колоний</button>
+            </div>
+        <?php endif; ?>
+    </div>
 </main>
 
 <script>
     $(document).ready(function() {
-    $('#run-python').on('click', function() {
-        $.ajax({
-            url: 'run_python.php',
-            method: 'POST',
-            data: {image_path: '<?php echo $image_path; ?>'},
-            dataType: 'json',
-            success: function(response) {
-                if (response.success) {
-                    $('#uploaded-image').attr('src', response.processed_image_path);
-                    $('#run-python').text('Скачать обработанное изображение')
-                        .attr('id', 'download-image')
-                        .off('click')
-                        .on('click', function() {
-                            // Create a temporary anchor element for the download
-                            var link = document.createElement('a');
-                            link.href = response.processed_image_path;
-                            link.download = 'processed_image.png'; // Set the desired file name
-                            document.body.appendChild(link);
-                            link.click();
-                            document.body.removeChild(link);
-                        });
-                } else {
-                    alert(response.error);
+        $('#run-python').on('click', function() {
+            $.ajax({
+                url: 'run_python.php',
+                method: 'POST',
+                data: {image_path: '<?php echo addslashes($image_path); ?>'},
+                dataType: 'json',
+                success: function(response) {
+                    if (response.success) {
+                        $('#uploaded-image').attr('src', response.processed_image_path);
+                        $('#run-python').text('Скачать обработанное изображение')
+                            .attr('id', 'download-image')
+                            .off('click')
+                            .on('click', function() {
+                                // Create a temporary anchor element for the download
+                                var link = document.createElement('a');
+                                link.href = response.processed_image_path;
+                                link.download = 'processed_image.png'; // Set the desired file name
+                                document.body.appendChild(link);
+                                link.click();
+                                document.body.removeChild(link);
+                            });
+                    } else {
+                        alert(response.error);
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    alert('Ошибка при выполнении Python скрипта');
                 }
-            },
-            error: function(jqXHR, textStatus, errorThrown) {
-                alert('Ошибка при выполнении Python скрипта');
-            }
+            });
         });
     });
-});
 </script>
 
 <?php
